@@ -4,6 +4,7 @@ from e_socket import *
 from gl import *
 from enit import *
 from gui import *
+from color import *
 from files.modules import editor,color_picker
 from ctypes import *
 import sys
@@ -97,12 +98,11 @@ def get_text_coords(text,x=0,y=0):
     return (size_screen[0] / 2 - text.get_width() / 2 + x, size_screen[1] / 2 - text.get_height() / 2 + y)
 
 size_screen = screen_real_resolution(size_screen)
-#size_screen = (250,250)
 screen = pygame.display.set_mode(size_screen)
 rect_x_end, rect_y_end = H_W_rect(size_screen)
 print(rect_x_end, rect_y_end)
 clock = pygame.time.Clock()
-bg_color = (128,128,128)
+bg_color = Gray
 font = pygame.font.SysFont('Arial', 20)
 ip='127.0.0.0'
 ip = get_lan_ip()
@@ -113,8 +113,40 @@ type = str('None')
 type_a = ''
 
 def heplScreen():
-    screen.fill((128, 128, 128))
+    line_1 = font.render('Нажмите 1 для сервера', True, White)
+    line_2 = font.render('Нажмите 1 для сервера', True, White)
+    line_3 = font.render('Нажмите 1 для сервера', True, White)
+    line_4 = font.render('Нажмите 1 для сервера', True, White)
+    line_5 = font.render('Нажмите 1 для сервера', True, White)
 
+    line_6 = font.render('Нажмите 1 для сервера', True, White)
+    line_7 = font.render('Нажмите 1 для сервера', True, White)
+    line_8 = font.render('Нажмите 1 для сервера', True, White)
+    line_9 = font.render('Нажмите 1 для сервера', True, White)
+    line_10 = font.render('Нажмите 1 для сервера', True, White)
+
+    line_11 = font.render('Нажмите 1 для сервера', True, White)
+    line_12 = font.render('Нажмите 1 для сервера', True, White)
+    line_13 = font.render('Нажмите 1 для сервера', True, White)
+    line_14 = font.render('Нажмите 1 для сервера', True, White)
+    line_15 = font.render('Нажмите 1 для сервера', True, White)
+
+    line_16 = font.render('Нажмите 1 для сервера', True, White)
+    line_17 = font.render('Нажмите 1 для сервера', True, White)
+    line_18 = font.render('Нажмите 1 для сервера', True, White)
+    line_19 = font.render('Нажмите 1 для сервера', True, White)
+    line_20 = font.render('Нажмите 1 для сервера', True, White)
+    screen.fill(bg_color)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+        pygame.display.update()
     return
 
 # функция отбражения меню
@@ -154,18 +186,18 @@ def menu():
                     play = 1
                     type = 'dev'
                     running = False
-        screen.fill((128, 128, 128))
+        screen.fill(Gray)
         screen.blit(menu_text_1, get_text_coords(menu_text_1, y=-10))
         screen.blit(menu_text_2, get_text_coords(menu_text_2, y=10))
         screen.blit(menu_text_5, get_text_coords(menu_text_2, y=30))    # добавление Нового пункта меню
         pygame.display.update()
     return
 
-menu_text_1 = font.render('Нажмите 1 для сервера', True, (255, 255, 255))
-menu_text_2 = font.render('Нажмите 2 для клиента', True, (255, 255, 255))
-menu_text_3 = font.render('Запустите 2 клиент', True, (255, 255, 255))
-menu_text_4 = font.render('Не найдено сервера - Переподключение', True, (255, 255, 255))
-menu_text_5 = font.render('Нажмите 3 для Справки\Посказки', True, (255, 255, 255))    # Текст  Нового пункта меню
+menu_text_1 = font.render('Нажмите 1 для сервера', True, White)
+menu_text_2 = font.render('Нажмите 2 для клиента', True, White)
+menu_text_3 = font.render('Запустите 2 клиент', True, White)
+menu_text_4 = font.render('Не найдено сервера - Переподключение', True, White)
+menu_text_5 = font.render('Нажмите 3 для Справки\Посказки', True, White)    # Текст  Нового пункта меню
 if dev == 0:
     menu()
     screen.fill((128,128,128))
@@ -182,7 +214,7 @@ if dev == 0:
             except ConnectionRefusedError:
                 running = True
                 while running:
-                    screen.fill((128, 128, 128))
+                    screen.fill(Gray)
                     screen.blit(menu_text_4, get_text_coords(menu_text_1))
                     pygame.display.update()
                     time.sleep(1)
@@ -205,7 +237,7 @@ if dev == 0:
             print(type)
             print('Invalid input')
             exit(-1)
-players = [player(rect_x_end, rect_y_end, (255, 255, 255), 0, 0) for i in range(1)]
+players = [player(rect_x_end, rect_y_end, White, 0, 0) for i in range(1)]
 bg_c1 = bg_c2 = bg_c3 = 0
 end_x = -1
 end_y = -1
@@ -215,7 +247,7 @@ end_y = -1
 def respawn():
     players[0].x = 0
     players[0].y = 0
-wait_text = font.render('Ожидание противника', True, (255, 255, 255))
+wait_text = font.render('Ожидание противника', True, White)
 
 # основной цикл игры
 while True:
@@ -343,13 +375,13 @@ while True:
                         pygame.draw.rect(screen, (0, 0, 255),
                                          (x * rect_x_end, y * rect_y_end, rect_x_end, rect_y_end))
                     if y == int(players[0].y/rect_y_end) and x == int(players[0].x/rect_x_end):
-                        pygame.draw.rect(screen, (255, 255, 255),
+                        pygame.draw.rect(screen, White,
                                          (x * rect_x_end, y * rect_y_end, rect_x_end, rect_y_end))
                 except:
                     #print('LIST INDEX OUT RANGE')
                     pass
         if int(players[0].x / rect_x_end) == end_x and int(players[0].y / rect_y_end) == end_y:
-            screen.blit(font.render('Вы победили!', True, (255, 255, 255)), (size_screen[0] / 2 - font.size('Вы победили!')[0] / 2, size_screen[1] / 2 - font.size('Вы победили!')[1] / 2))
+            screen.blit(font.render('Вы победили!', True, White), (size_screen[0] / 2 - font.size('Вы победили!')[0] / 2, size_screen[1] / 2 - font.size('Вы победили!')[1] / 2))
             pygame.display.update()
             if dev == 0:
                 time.sleep(1)
@@ -361,7 +393,7 @@ while True:
                 e_socket.data = f'{bg_data[0]}'
                 data = e_socket.update()
                 if data == f's':
-                    screen.blit(font.render('Вы проиграли!', True, (255, 255, 255)), (
+                    screen.blit(font.render('Вы проиграли!', True, White), (
                     size_screen[0] / 2 - font.size('Вы проиграли!')[0] / 2,
                     size_screen[1] / 2 - font.size('Вы проиграли!')[1] / 2))
                     pygame.display.update()
