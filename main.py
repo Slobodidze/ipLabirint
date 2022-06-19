@@ -226,7 +226,7 @@ if dev == 0:
                         running = True
         elif type == '1':
             if type_a != 'dev':
-                ip = input('set ip\n>> ')
+                #ip = input('set ip\n>> ')
                 #e_socket = multiplayer_socket(input('ip\n>> '), 8080, type)
                 e_socket = multiplayer_socket(ip, 8080, type)
             else:
@@ -277,6 +277,10 @@ while True:
                         data = None
                         map_data = editor.load_map_editor(screen, size_screen,map_input=map_send)
                         map_send = map_data[0]
+                        run_check_map = True
+                        spawn_x, spawn_y = map_data[2]
+                        end_x_check, end_y_check = map_data[3]
+                        players[0].x, players[0].y = (spawn_x * rect_x_end, spawn_y * rect_y_end)
             screen.fill(map_data[1])
             for y in range(len(map_send)):
                 for x in range(len(map_send[y])):
@@ -381,7 +385,7 @@ while True:
                     #print('LIST INDEX OUT RANGE')
                     pass
         if int(players[0].x / rect_x_end) == end_x and int(players[0].y / rect_y_end) == end_y:
-            screen.blit(font.render('Вы победили!', True, White), (size_screen[0] / 2 - font.size('Вы победили!')[0] / 2, size_screen[1] / 2 - font.size('Вы победили!')[1] / 2))
+            screen.blit(font.render('Вы победили!', True, White), get_text_coords(font.render('Вы победили!', True, White),0,0))
             pygame.display.update()
             if dev == 0:
                 time.sleep(1)
