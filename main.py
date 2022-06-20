@@ -109,6 +109,7 @@ ip = get_lan_ip()
 print(ip)
 
 pygame.display.set_caption(f"by kucer0043 Labirint ip:{ip}")
+text_disconnect = font.render('Подключение разорвано', True, White)
 type = str('None')
 type_a = ''
 
@@ -148,6 +149,19 @@ def heplScreen():
                     running = False
         pygame.display.update()
     return
+
+
+def disconnect_action():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        screen.fill((128,128,128))
+        screen.blit(text_disconnect,get_text_coords(text_disconnect))
+        pygame.display.update()
+    pass
+
 
 # функция отбражения меню
 def menu():
@@ -228,7 +242,7 @@ if dev == 0:
             if type_a != 'dev':
                 #ip = input('set ip\n>> ')
                 #e_socket = multiplayer_socket(input('ip\n>> '), 8080, type)
-                e_socket = multiplayer_socket(ip, 8080, type)
+                e_socket = multiplayer_socket(ip, 8080, type,action_on_disconnect=disconnect_action)
             else:
                 e_socket = multiplayer_socket('localhost', 8080, type)
         elif type == '3':    # Добавление Реакции на кнопку открытия окна с подсказаками
@@ -248,7 +262,7 @@ def respawn():
     players[0].x = 0
     players[0].y = 0
 wait_text = font.render('Ожидание противника', True, White)
-
+yes_continue = 0
 # основной цикл игры
 while True:
     if play == 0:
@@ -357,10 +371,6 @@ while True:
                     players[0].move('LEFT')
                 if event.key == pygame.K_d:
                     players[0].move('RIGHT')
-                if event.key == pygame.K_PLUS and dev == 1:
-                    players[0].hearts += 0.5
-                if event.key == pygame.K_MINUS and dev == 1:
-                    players[0].hearts -= 0.5
                 if event.key == pygame.K_q and dev == 1:
                     play = 0
     if play == 1:
